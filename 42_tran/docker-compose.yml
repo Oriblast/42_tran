@@ -1,0 +1,162 @@
+version: '3.8'
+
+services:
+
+  db:
+    build:
+      context: ./db/
+    image: "s_postgres"
+    container_name: db
+    networks:
+      - back_v
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    restart: unless-stopped
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgadmin:
+  #   container_name: pgadmin
+  #   build:
+  #     context: ./container/pgadmin/
+  #   image: "s_pgadmin"
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - back_v
+  #   volumes:
+  #     - pgadmin_data:/var/lib/pgadmin
+  #   restart: unless-stopped
+  #   ports:
+  #     - "${PGADMIN_PORT}:${PGADMIN_INTERNAL_PORT}"
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+  #     - GUNICORN_ACCESS_LOGFILE=${GUNICORN_ACCESS_LOGFILE}
+  #     - PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED=${PGADMIN_UPGRADE_CHECK_ENABLED}
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
+  back:
+    container_name: back
+    build: ./python/
+    image: "s_django"
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - back_v
+    volumes:
+      - ./python/app/:/usr/src/app/
+    ports:
+      - "${DJANGO_PORT}:${DJANGO_PORT}"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DJANGO_DEBUG}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+      - DATABASE_HOST=${DB_HOST}
+      - DATABASE_NAME=${DB_NAME}
+      - DATABASE_USER=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+
+  front:
+    build: ./frontend
+    container_name: front
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.pnpm-store
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      # - "${FRONTEND_HTTPS_PORT}:${NGINX_HTTPS_PORT}"
+    networks:
+      - front_v
+
+  # nginx:
+  #     container_name: nginx
+  #     build:
+  #       context: ./website/
+  #     profiles:
+  #       - "prod"  
+  #     image: "s_nginx"
+  #     networks:
+  #       - front_v
+  #     ports:
+  #       - "${FRONTEND_PORT}:${NGINX_HTTP_PORT}"
+  #       - "${FRONTEND_HTTPS_PORT}:${NGINX_HTTPS_PORT}"
+  #     volumes:
+  #       - ./website:/app
+  #       - ./website/default.conf:/opt/bitnami/nginx/conf/server_blocks/my_server_block.conf:ro
+  #     restart: unless-stopped
+  #     depends_on:
+  #       front:
+  #         condition: service_completed_successfully
+  #     healthcheck:
+  #       test: curl -kf https://localhost:443 || exit 1
+  #       interval: 30s
+  #       timeout: 10s
+  #       retries: 3
+  #       start_period: 30s
+
+  # elasticsearch:
+  #   image: arm64v8/elasticsearch:8.12.0
+  #   container_name: elasticsearch
+  #   environment:
+  #     - discovery.type=single-node
+  #     - "xpack.security.enabled=false"
+  #   networks:
+  #     - elk
+  #     - back_v
+  #   ports:
+  #     - 9200:9200
+
+  # logstash:
+  #   image: arm64v8/logstash:8.12.0
+  #   container_name: logstash
+  #   volumes:
+  #     - ./container/devops/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+  #     - ./container/devops/logstash/pipeline:/usr/share/logstash/pipeline 
+  #   environment:
+  #     LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #   networks:
+  #     - elk
+  #   depends_on:
+  #     - elasticsearch
+
+  # kibana:
+  #   image: arm64v8/kibana:8.12.0
+  #   container_name: kibana
+  #   ports:
+  #     - 5601:5601
+  #   networks:
+  #     - elk
+  #   depends_on:
+  #     - elasticsearch
+
+volumes:
+  pg_data:
+    name: pg_data
+  pgadmin_data:
+    name: pgadmin_data
+
+networks:
+  # elk:
+  #   driver: bridge
+  back_v:
+    driver: bridge
+    name: back_v
+  front_v:
+    driver: bridge
+    name: front_v
