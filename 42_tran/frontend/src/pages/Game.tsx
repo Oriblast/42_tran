@@ -21,6 +21,7 @@ const Game: React.FC = () => {
           <div className="card mt-4">
           <Link to="/pong">1 V 1 </Link>
           <Link to="/IApong">1 V IA </Link>
+          <Link to="/Tournament"> tournoi </Link>
           </div>
         </div>
       </section>

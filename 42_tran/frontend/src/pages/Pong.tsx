@@ -94,15 +94,13 @@ const Pong: React.FC = () => {
       }
   
       if (ballPosition.x >= 1200) {
+        handleScoreChange(score + 1); // Augmenter le score pour le joueur 2
         setBallPosition({ x: 600, y: 300 }); // Réinitialiser la position de la balle au centre
-        // Augmenter le score pour le joueur 2
-        setScore(prevScore => prevScore + 1);
       }
   
       if (ballPosition.x <= 0) {
+        handleScoreeChange(scoree + 1); // Augmenter le score pour le joueur 1
         setBallPosition({ x: 600, y: 300 }); // Réinitialiser la position de la balle au centre
-        // Augmenter le score pour le joueur 1
-        setScoree(prevScoree => prevScoree + 1);
       }
     };
 
@@ -121,6 +119,24 @@ const Pong: React.FC = () => {
       }
       if (keysPressed2['2'] && raq2Position.y < 480) {
         setRaq2Position(prevPosition => ({ ...prevPosition, y: prevPosition.y + 1 }));
+      }
+    };
+
+    const handleScoreChange = (newScore: number) => {
+      setScore(newScore);
+      if (newScore >= 5) {
+        alert("Le joueur 1 a gagné !");
+        setScore(0);
+        setScoree(0);
+      }
+    };
+
+    const handleScoreeChange = (newScore: number) => {
+      setScoree(newScore);
+      if (newScore >= 5) {
+        alert("Le joueur 2 a gagné !");
+        setScore(0);
+        setScoree(0);
       }
     };
 

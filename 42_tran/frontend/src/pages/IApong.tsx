@@ -92,7 +92,7 @@ const Pong: React.FC = () => {
         }
         ballDirection.dx *= -1;
       }
-  
+  /*
       if (ballPosition.x >= 1200) {
         setBallPosition({ x: 600, y: 300 }); // Réinitialiser la position de la balle au centre
         // Augmenter le score pour le joueur 2
@@ -103,7 +103,7 @@ const Pong: React.FC = () => {
         setBallPosition({ x: 600, y: 300 }); // Réinitialiser la position de la balle au centre
         // Augmenter le score pour le joueur 1
         setScoree(prevScoree => prevScoree + 1);
-      }
+      }*/
       if (ballPosition.x >= 1200) {
         handleScoreChange(score + 1); // Augmenter le score pour le joueur 2
         setBallPosition({ x: 600, y: 300 }); // Réinitialiser la position de la balle au centre

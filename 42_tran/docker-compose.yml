@@ -79,6 +79,7 @@ services:
       - /app/node_modules
       - /app/.pnpm-store
     ports:
+      
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
       # - "${FRONTEND_HTTPS_PORT}:${NGINX_HTTPS_PORT}"
     networks:

@@ -10,6 +10,9 @@ import Settings from './pages/Settings';
 import Error from './pages/Error';
 import Pong from './pages/Pong';
 import IApong from './pages/IApong';
+import Tournament from './pages/Tournament';
+import PlayerForm from './pages/PlayerForm';
+import Match from './pages/Match';
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function AppRoutes() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/pong" element={<Pong />} />
         <Route path="/IApong" element={<IApong />} />
+        <Route path="/Tournament" element={<Tournament />} />
+        <Route path="/PlayerForm" element={<PlayerForm />} />
+        <Route path="/Match" element={<Match />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
