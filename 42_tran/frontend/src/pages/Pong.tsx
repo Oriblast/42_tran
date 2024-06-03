@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Game.css';
 import NavBar from './../components/NavBar';
-import i18n from './../i18n';
 
 const Pong: React.FC = () => {
   const [ballPosition, setBallPosition] = useState({ x: 600, y: 300 });
   const [ballDirection, setBallDirection] = useState({ dx: -1, dy: 0 });
   const [raq1Position, setRaq1Position] = useState({ x: 50, y: 250 });
-  const [raq2Position, setRaq2Position] = useState({ x: 1150, y: 250 });
+  const [raq2Position, setRaq2Position] = useState({ x: 1100, y: 250 });
   const [keysPressed1, setKeysPressed1] = useState<{ [key: string]: boolean }>({});
   const [keysPressed2, setKeysPressed2] = useState<{ [key: string]: boolean }>({});
-  const speed = 5;
   const [score, setScore] = useState(0);
   const [scoree, setScoree] = useState(0);
   
@@ -156,8 +154,9 @@ const Pong: React.FC = () => {
       <NavBar />
       <section className="reduced-image">
         <div className="container py-5">
-          <button onClick={() => changeLanguage('fr')}>Français</button>
+        <button onClick={() => changeLanguage('fr')}>Français</button>
           <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('es')}>spanish</button>
           <h1>{t('hello_message', { name: "ping" })}</h1>
           <div className="card mt-4">
             <div className="game-container">

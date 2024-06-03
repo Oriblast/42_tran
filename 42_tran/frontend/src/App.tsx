@@ -13,6 +13,7 @@ import IApong from './pages/IApong';
 import Tournament from './pages/Tournament';
 import PlayerForm from './pages/PlayerForm';
 import Match from './pages/Match';
+import Multiplayer from './pages/Multiplayer';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function AppRoutes() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/pong" element={<Pong />} />
         <Route path="/IApong" element={<IApong />} />
+        <Route path="/Multiplayer" element={<Multiplayer />} />
         <Route path="/Tournament" element={<Tournament />} />
         <Route path="/PlayerForm" element={<PlayerForm />} />
         <Route path="/Match" element={<Match />} />

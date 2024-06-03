@@ -34,7 +34,8 @@ const Leaderboard: React.FC = () => {
       <section className="">
         <div className="container py-5">
         <button onClick={() => changeLanguage('fr')}>Français</button>
-        <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('es')}>spanish</button>
           <h1 className="text-center">{t('classement')}</h1>
           {/* Table */}
           <section className="ftco-section">

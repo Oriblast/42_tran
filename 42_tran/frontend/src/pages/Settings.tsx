@@ -14,7 +14,8 @@ const Settings = () => {
       <section className="">
         <div className="container py-5">
         <button onClick={() => changeLanguage('fr')}>Français</button>
-        <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('es')}>spanish</button>
           <div className="container rounded mb-5">
               <div className="row">
                 <div className="col-md-3 border-right">

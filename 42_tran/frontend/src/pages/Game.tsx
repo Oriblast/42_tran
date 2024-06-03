@@ -17,11 +17,13 @@ const Game: React.FC = () => {
         <div className="container py-5">
           <button onClick={() => changeLanguage('fr')}>Français</button>
           <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('es')}>spanish</button>
           <h1>{t('hello_message', { name: "ping" })}</h1>
           <div className="card mt-4">
           <Link to="/pong">1 V 1 </Link>
           <Link to="/IApong">1 V IA </Link>
           <Link to="/Tournament"> tournoi </Link>
+          <Link to="/Multiplayer"> 2 v 2 </Link>
           </div>
         </div>
       </section>
