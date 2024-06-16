@@ -14,6 +14,7 @@ import Tournament from './pages/Tournament';
 import PlayerForm from './pages/PlayerForm';
 import Match from './pages/Match';
 import Multiplayer from './pages/Multiplayer';
+import PongGame from './PongGame'; 
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function AppRoutes() {
         <Route path="/IApong" element={<IApong />} />
         <Route path="/Multiplayer" element={<Multiplayer />} />
         <Route path="/Tournament" element={<Tournament />} />
+        <Route path="/PongGame" element={<PongGame/>} />
         <Route path="/PlayerForm" element={<PlayerForm />} />
         <Route path="/Match" element={<Match />} />
         <Route path="*" element={<Error />} />

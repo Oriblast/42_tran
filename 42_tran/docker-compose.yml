@@ -2,21 +2,18 @@ version: '3.8'
 
 services:
   db:
-    build:
-      context: ./db/
-    image: "s_postgres"
+    image: postgres:latest
     container_name: db
-    networks:
-      - back_v
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    restart: unless-stopped
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - back_v
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
@@ -39,10 +36,10 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       DJANGO_DEBUG: ${DJANGO_DEBUG}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
-      VAULT_ADDR: http://vault:8200
     depends_on:
       - db
-      - vault
+    networks:
+      - back_v
 
   front:
     build: ./frontend
@@ -52,7 +49,7 @@ services:
       - /app/node_modules
       - /app/.pnpm-store
     ports:
-      - "${FRONTEND_PORT}:3000"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     networks:
       - front_v
 
@@ -60,24 +57,12 @@ services:
     build: ./nginx
     container_name: nginx
     ports:
-      - "${NGINX_HTTP_PORT}:8080"
-      - "${NGINX_HTTPS_PORT}:8443"
+      - "80:80"
     depends_on:
       - web
       - front
     networks:
-      - back_v
       - front_v
-
-  vault:
-    image: vault:1.9.3
-    container_name: vault
-    environment:
-      VAULT_DEV_ROOT_TOKEN_ID: root
-      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
-    ports:
-      - "8200:8200"
-    networks:
       - back_v
 
 networks:

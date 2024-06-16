@@ -1,13 +1,23 @@
 # frontend/Dockerfile
 FROM node:21
 
-RUN corepack enable
 WORKDIR /app
 COPY package*.json pnpm-lock.yaml ./
 
+# Installer pnpm avant de l'utiliser
+RUN npm install -g pnpm
+
+# Installer les dépendances
 RUN pnpm install
+
+# Copier le reste des fichiers du projet
 COPY . .
 
-RUN pnpm install three
+# Construire le projet
+RUN pnpm run build
 
+# Exposer le port de l'application
+EXPOSE 3000
+
+# Démarrer l'application
 CMD ["pnpm", "run", "dev"]

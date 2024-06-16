@@ -24,6 +24,7 @@ const Game: React.FC = () => {
           <Link to="/IApong">1 V IA </Link>
           <Link to="/Tournament"> tournoi </Link>
           <Link to="/Multiplayer"> 2 v 2 </Link>
+          <Link to="/PongGame"> 2 v 2 </Link>
           </div>
         </div>
       </section>
