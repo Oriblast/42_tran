@@ -73,7 +73,7 @@ const PongGame: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sock = new SockJS('http://localhost:8000/ws/pong/');
+    const sock = new SockJS('http://localhost:8000');
     const stompClient = new Client({
       webSocketFactory: () => sock,
       debug: str => {

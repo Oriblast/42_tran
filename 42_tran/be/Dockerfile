@@ -1,13 +1,17 @@
-
 # Dockerfile
+
+# Utilisation de l'image de base Python
 FROM python:3.9
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
+# Définition de l'environnement de travail dans le conteneur
 WORKDIR /app
 
-COPY requirements.txt /app/
+# Copie du fichier requirements.txt et installation des dépendances
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . /app/
+# Copie du reste du code dans le conteneur
+COPY . .
+
+# Commande par défaut pour démarrer l'application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

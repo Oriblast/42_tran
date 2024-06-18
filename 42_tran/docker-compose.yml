@@ -21,7 +21,7 @@ services:
       retries: 5
 
   web:
-    build: ./be
+    build: ./be/
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./be:/app
@@ -42,14 +42,14 @@ services:
       - back_v
 
   front:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: front
     volumes:
       - ./frontend:/app
-      - /app/node_modules
-      - /app/.pnpm-store
     ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - "3000:3000"
     networks:
       - front_v
 

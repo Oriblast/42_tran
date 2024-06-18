@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
+import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from './pages/HomePage';
-import Login from './pages/Login';
+//import Login from './pages/Login';
 import ProfilePage from './pages/ProfilePage';
 import Game from './pages/Game';
 import Leaderboard from './pages/Leaderboard';
@@ -15,6 +16,13 @@ import PlayerForm from './pages/PlayerForm';
 import Match from './pages/Match';
 import Multiplayer from './pages/Multiplayer';
 import PongGame from './PongGame'; 
+import Home from './pages/Home';
+import Header from "./pages/Header";
+import Login from './components/Login';
+import Callback from './components/Callback';
+import Profile from './components/Profile';
+import Murpong from './pages/murpong';
+export const API_URL = "http://localhost:8000/api/students/";
 
 function App() {
   return (
@@ -48,6 +56,11 @@ function AppRoutes() {
         <Route path="/PongGame" element={<PongGame/>} />
         <Route path="/PlayerForm" element={<PlayerForm />} />
         <Route path="/Match" element={<Match />} />
+        <Route path="Home" element={<Home/>} />
+        <Route path="Header" element={<Header/>} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/murpong" element={<Murpong />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>

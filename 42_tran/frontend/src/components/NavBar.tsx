@@ -37,6 +37,15 @@ const NavBar = () => {
                 <li className="nav-item">
                   <Link className="nav-link" to="/settings" onClick={() => setIsNavCollapsed(true)}>Parametres</Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/Home" onClick={() => setIsNavCollapsed(true)}>inscription</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/Header" onClick={() => setIsNavCollapsed(true)}>inscription2</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/Profile" onClick={() => setIsNavCollapsed(true)}>profile</Link>
+                </li>
               </ul>
               <ul className="navbar-nav ms-auto">
               <button onClick={toggleTheme} type="button" className="nav-link btn btn-sm mb-0 me-1">
