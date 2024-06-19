@@ -26,6 +26,7 @@ const Game: React.FC = () => {
           <Link to="/Multiplayer"> 2 v 2 </Link>
           <Link to="/PongGame"> 2 v 2 </Link>
           <Link to="/murpong"> murpong </Link>
+          <Link to="/Pong3D"> 3dpong </Link>
           </div>
         </div>
       </section>

@@ -22,6 +22,7 @@ import Login from './components/Login';
 import Callback from './components/Callback';
 import Profile from './components/Profile';
 import Murpong from './pages/murpong';
+import Pong3D from './components/Pong3D';
 export const API_URL = "http://localhost:8000/api/students/";
 
 function App() {
@@ -61,6 +62,7 @@ function AppRoutes() {
         <Route path="/callback" element={<Callback />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/murpong" element={<Murpong />} />
+        <Route path="/Pong3D" element={<Pong3D />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
